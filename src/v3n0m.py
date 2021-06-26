@@ -1063,11 +1063,15 @@ def vulnscan():
 
 
 # noinspection PyBroadException
-
 def ignoringGet(url):
+    header = [line.strip() for line in open("lists/header", 'r', encoding='utf-8')]
+    ua = random.choice(header)
+    headers = {
+    "user-agent": ua,
+}
     try:
         try:
-            responce = requests.get(url, timeout=2)
+            responce = requests.get(url,headers=headers)
             responce.raise_for_status()
         except Exception:
             return ''
